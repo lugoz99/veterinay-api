@@ -33,12 +33,6 @@ public class Vaccination {
     @Column(name = "application_date", nullable = false)
     private LocalDate applicationDate;
 
-    @Column(length = 50)
-    private String lot; // lote
-
-    @Column(length = 100)
-    private String laboratory;
-
     @Column(name = "next_dose_date")
     private LocalDate nextDoseDate;
 

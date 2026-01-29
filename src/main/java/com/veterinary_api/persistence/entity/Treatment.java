@@ -22,13 +22,10 @@ public class Treatment {
     @JoinColumn(name = "consultation_id", nullable = false)
     private MedicalConsultation consultation;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pet_id", nullable = false)
-    private Pet pet;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medication_id", nullable = false)
-    private Medication medication;
+    private Product medication;
 
     @Column(nullable = false, length = 100)
     private String dosage;
@@ -56,7 +53,7 @@ public class Treatment {
     private String instructions;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false)
     private TreatmentStatus status = TreatmentStatus.ACTIVE;
 
     public enum AdministrationRoute {

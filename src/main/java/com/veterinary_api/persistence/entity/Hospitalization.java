@@ -41,6 +41,9 @@ public class Hospitalization {
     @Column(name = "discharge_diagnosis", columnDefinition = "TEXT")
     private String dischargeDiagnosis;
 
+    @Column(name = "room_number", precision = 10,scale = 2)
+    private Integer roomNumber;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
     private HospitalizationStatus status = HospitalizationStatus.ADMITTED;

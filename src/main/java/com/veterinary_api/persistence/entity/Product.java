@@ -8,11 +8,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "medications") // "Medications" es el término clínico correcto
+@Table(name = "products")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Medication {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +25,10 @@ public class Medication {
     private String description;
 
     @Column(nullable = false, length = 50)
-    private String type; // Ejemplo: Antibiótico, Analgésico
+    private String type;
 
     @Column(length = 50)
-    private String presentation; // Ejemplo: Tabletas, Jarabe, Inyectable
+    private String presentation;
 
     @Column(name = "current_stock", nullable = false)
     private Integer currentStock = 0;

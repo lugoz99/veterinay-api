@@ -6,7 +6,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-
+import java.util.List;
 
 
 @Table(name = "owners")
@@ -29,11 +29,16 @@ public class Owner {
 
     private String email;
 
+    @Column(unique = true)
     private String dni;
 
     private String address;
 
     private LocalDateTime createdAt;
+
+    @OneToMany(targetEntity = Pet.class,cascade = CascadeType.ALL, mappedBy = "owner")
+    // When the relationship is unidirectional, we use JoinColumn here.
+    private List<Pet> pets;
 
     @PrePersist
     protected void onCreate(){

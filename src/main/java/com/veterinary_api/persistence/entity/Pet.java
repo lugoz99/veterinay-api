@@ -42,7 +42,13 @@ public class Pet {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "neutered_status")
-    private NeuteredStatus neuteredStatus;
+    private NeuteredStatus neuteredStatus = NeuteredStatus.UNKNOWN;
+
+
+    // Bidirectional relationship
+    @ManyToOne(targetEntity = Owner.class)
+    @JoinColumn(name = "owner_id")
+    private Owner owner;
 
     public enum NeuteredStatus {
         YES, NO, NOT_APPLICABLE, UNKNOWN

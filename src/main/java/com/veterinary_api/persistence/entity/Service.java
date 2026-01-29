@@ -4,7 +4,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
+
 import java.math.BigDecimal;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "services")
@@ -34,4 +38,13 @@ public class Service {
 
     @Column(name = "is_active")
     private Boolean isActive = true;
+
+    @Column
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate(){
+        this.createdAt = LocalDateTime.now();
+    }
+
 }
