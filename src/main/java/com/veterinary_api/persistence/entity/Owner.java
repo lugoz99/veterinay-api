@@ -36,14 +36,13 @@ public class Owner {
 
     private LocalDateTime createdAt;
 
+
     @OneToMany(targetEntity = Pet.class,cascade = CascadeType.ALL, mappedBy = "owner")
     // When the relationship is unidirectional, we use JoinColumn here.
     private List<Pet> pets;
 
-    @PrePersist
-    protected void onCreate(){
-        this.createdAt = LocalDateTime.now();
-    }
+    @OneToMany(mappedBy = "invoices", fetch = FetchType.LAZY)
+    private List<Invoice> invoices;
 
 
 }

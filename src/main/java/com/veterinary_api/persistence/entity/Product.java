@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -50,4 +51,11 @@ public class Product {
 
     @Column(name = "is_active")
     private Boolean isActive = true;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<InvoiceDetail> invoiceDetails;
+
+    @OneToMany(mappedBy = "medication", fetch = FetchType.LAZY)
+    private List<Treatment> treatments;
+
 }

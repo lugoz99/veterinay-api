@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,14 +31,21 @@ public class Invoice {
     private BigDecimal tax;
 
     @Column(precision = 10,scale = 2)
-    private BigDecimal total;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id")
-    private Owner owner;
+    private BigDecimal total; // sum de todos los subtotales
 
     @PrePersist
     protected void onCreate() {
         this.invoiceDate = LocalDateTime.now();
     }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private Owner owner;
+
+
+    @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY)
+    private List<InvoiceDetail> invoiceDetails;
+
+
+
 }

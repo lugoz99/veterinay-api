@@ -1,5 +1,6 @@
 package com.veterinary_api.persistence.entity;
 
+import com.veterinary_api.persistence.enums.NeuteredStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -44,15 +45,10 @@ public class Pet {
     @Column(name = "neutered_status")
     private NeuteredStatus neuteredStatus = NeuteredStatus.UNKNOWN;
 
-
     // Bidirectional relationship
-    @ManyToOne(targetEntity = Owner.class)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private Owner owner;
-
-    public enum NeuteredStatus {
-        YES, NO, NOT_APPLICABLE, UNKNOWN
-    }
 
     @PrePersist
     protected void onCreate(){

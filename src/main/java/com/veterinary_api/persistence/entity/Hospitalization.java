@@ -22,9 +22,6 @@ public class Hospitalization {
     @JoinColumn(name = "pet_id", nullable = false)
     private Pet pet;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "veterinarian_id", nullable = false)
-    private Veterinarian veterinarian;
 
     @Column(name = "admission_date", nullable = false)
     private LocalDateTime admissionDate;
@@ -60,5 +57,10 @@ public class Hospitalization {
         TRANSFERRED, // Trasladado a otro centro
         DECEASED     // Fallecido durante la internación
     }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "veterinarian_id", nullable = false)
+    private Veterinarian veterinarian;
+
 
 }

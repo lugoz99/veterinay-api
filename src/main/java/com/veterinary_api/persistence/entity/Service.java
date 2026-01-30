@@ -9,6 +9,7 @@ import org.springframework.cglib.core.Local;
 import java.math.BigDecimal;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "services")
@@ -46,5 +47,9 @@ public class Service {
     protected void onCreate(){
         this.createdAt = LocalDateTime.now();
     }
+
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
+    private List<InvoiceDetail> invoiceDetails;
+
 
 }

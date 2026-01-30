@@ -1,11 +1,14 @@
 package com.veterinary_api.persistence.entity;
 
+import com.veterinary_api.persistence.enums.AdministrationRoute;
+import com.veterinary_api.persistence.enums.TreatmentStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "treatments")
@@ -18,21 +21,8 @@ public class Treatment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "consultation_id", nullable = false)
-    private MedicalConsultation consultation;
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "medication_id", nullable = false)
-    private Product medication;
-
     @Column(nullable = false, length = 100)
     private String dosage;
-
-    @Enumerated(EnumType.STRING) // Guarda el texto en la DB para mayor claridad
-    @Column(name = "administration_route", nullable = false)
-    private AdministrationRoute administrationRoute;
 
     @Column(nullable = false, length = 100)
     private String frequency;
@@ -52,25 +42,33 @@ public class Treatment {
     @Column(columnDefinition = "TEXT")
     private String instructions;
 
+    private LocalDateTime createdAt;
+
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TreatmentStatus status = TreatmentStatus.ACTIVE;
 
-    public enum AdministrationRoute {
-        ORAL,            // Vía oral
-        INTRAVENOUS,     // Intravenosa
-        INTRAMUSCULAR,   // Intramuscular
-        SUBCUTANEOUS,    // Subcutánea
-        TOPICAL,         // Tópica (piel)
-        OPHTHALMIC,      // Oftálmica (ojos)
-        OTIC             // Ótica (oídos)
+    @Enumerated(EnumType.STRING) // Guarda el texto en la DB para mayor claridad
+    @Column(name = "administration_route", nullable = false)
+    private AdministrationRoute administrationRoute;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "medication_id", nullable = false)
+    private Product medication;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "consultation_id", nullable = false)
+    private MedicalConsultation consultation;
+
+
+
+    @PrePersist
+    protected void onCreate(){
+        this.createdAt = LocalDateTime.now();
     }
 
-    public enum TreatmentStatus {
-        ACTIVE,          // En curso
-        COMPLETED,       // Finalizado
-        SUSPENDED,       // Suspendido por el médico
-        CANCELLED        // Cancelado antes de iniciar
-    }
+
 
 }

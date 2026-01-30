@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Table(name = "veterinarians")
 @Entity
@@ -35,6 +36,9 @@ public class Veterinarian {
     private String address;
 
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "veterinarian",fetch = FetchType.LAZY)
+    private List<Hospitalization> hospitalizations;
 
     @PrePersist
     protected void onCreate(){
